@@ -1,0 +1,62 @@
+{
+  "api": {
+    "host": "0.0.0.0",
+    "port": 8000,
+    "websocket_port": 8765
+  },
+  "data": {
+    "binance": {
+      "symbol": "BTCUSDT",
+      "intervals": ["1m", "5m", "15m", "1h", "4h", "1d"],
+      "default_interval": "1h",
+      "limit": 1000
+    },
+    "coingecko": {
+      "coin_id": "bitcoin",
+      "vs_currency": "usd",
+      "days": 365
+    },
+    "update_interval": 300
+  },
+  "models": {
+    "lstm": {
+      "sequence_length": 24,
+      "lstm_units": 128,
+      "dropout_rate": 0.3,
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "epochs": 100,
+      "patience": 10,
+      "horizons": [1, 6, 12, 24]
+    },
+    "transformer": {
+      "sequence_length": 30,
+      "n_heads": 4,
+      "hidden_dim": 128,
+      "dropout_rate": 0.2,
+      "learning_rate": 0.001,
+      "batch_size": 16,
+      "epochs": 100,
+      "patience": 10,
+      "horizons": [24, 72, 168]
+    }
+  },
+  "features": {
+    "technical_indicators": {
+      "sma_windows": [7, 14, 30, 50, 200],
+      "ema_windows": [7, 14, 30, 50, 200],
+      "rsi_window": 14,
+      "macd_params": {
+        "fast": 12,
+        "slow": 26,
+        "signal": 9
+      },
+      "bollinger_window": 20
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file": "logs/app.log"
+  }
+}
